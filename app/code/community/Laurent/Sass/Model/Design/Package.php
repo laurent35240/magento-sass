@@ -10,6 +10,7 @@
  * @copyright  ${copyright}
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 class Laurent_Sass_Model_Design_Package extends Mage_Core_Model_Design_Package
 {
     /**
@@ -21,32 +22,28 @@ class Laurent_Sass_Model_Design_Package extends Mage_Core_Model_Design_Package
      */
     public function getSkinUrl($file = null, array $params = array())
     {
-        $fileExtension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+        /** @var $sassHelper Laurent_Sass_Helper_Data */
+        $sassHelper = Mage::helper('sass');
+        $fileExtension = $sassHelper->getFileExtension($file);
 
         if($fileExtension == 'scss' || $fileExtension == 'sass'){
-            //Compiling and caching sass file
-            $targetFilename = Mage::getBaseDir('media') . DS . 'sass' . DS . md5($file) . '.css';
-
-            if (!file_exists(dirname($targetFilename))) {
-                mkdir(dirname($targetFilename), 0775, true);
-            }
-
             if (empty($params['_type'])) {
                 $params['_type'] = 'skin';
             }
+            $targetFilename = Mage::getBaseDir('media') . DS . 'sass' . DS . md5($file) . '.css';
+            $sourceFilename = $this->getFilename($file, $params);
 
-            if(Mage::getStoreConfig('dev/sass/use_ruby')){
-                $sassExec = Mage::getStoreConfig('dev/sass/ruby_sass_command');
-                $command = $sassExec . ' ' . $this->getFilename($file, $params) .':' . $targetFilename;
-                exec($command, $output);
-            }
-            else{
-                //Using PhpSass
-            }
+            try{
+                $sassHelper->convertToCss($sourceFilename, $targetFilename);
 
-            $skinUrl = str_replace(Mage::getBaseDir('media') . DS, '', $targetFilename);
-            $skinUrl = str_replace('\\', '/', $skinUrl);
-            $skinUrl = Mage::getBaseUrl('media', isset($params['_secure']) ? (bool)$params['_secure'] : null) . $skinUrl;
+                $skinUrl = str_replace(Mage::getBaseDir('media') . DS, '', $targetFilename);
+                $skinUrl = str_replace('\\', '/', $skinUrl);
+                $skinUrl = Mage::getBaseUrl('media', isset($params['_secure']) ? (bool)$params['_secure'] : null) . $skinUrl;
+            }
+            catch(Exception $e){
+                Mage::logException($e);
+                $skinUrl = '';
+            }
 
         }
         else{
