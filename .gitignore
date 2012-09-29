@@ -63,16 +63,7 @@ js/scriptaculous/
 js/spacer.gif
 js/tiny_mce/
 js/varien/
-lib/3Dsecure/
-lib/flex/
-lib/googlecheckout/
-lib/.htaccess
-lib/LinLibertineFont/
-lib/Mage/
-lib/PEAR/
-lib/phpseclib/
-lib/Varien/
-lib/Zend/
+lib/
 LICENSE_AFL.txt
 LICENSE.html
 LICENSE.txt

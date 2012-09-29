@@ -1,0 +1,9 @@
+{
+    "config": {
+        "vendor-dir": "lib"
+    },
+
+    "require": {
+        "richthegeek/phpsass": "dev-master"
+    }
+}

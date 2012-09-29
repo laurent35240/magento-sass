@@ -1,0 +1,64 @@
+{
+    "hash": "53ea50bbf4727519718838a4265c9b76",
+    "packages": [
+        {
+            "name": "richthegeek/phpsass",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/richthegeek/phpsass",
+                "reference": "e309a405acdd26cf2ff618ae3e1f53114999d247"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/richthegeek/phpsass/zipball/e309a405acdd26cf2ff618ae3e1f53114999d247",
+                "reference": "e309a405acdd26cf2ff618ae3e1f53114999d247",
+                "shasum": ""
+            },
+            "time": "1348664655",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "classmap": [
+                    "script/",
+                    "renderers/",
+                    "tree/",
+                    "SassException.php",
+                    "SassFile.php",
+                    "SassParser.php"
+                ]
+            },
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Richard Lyon",
+                    "homepage": "https://github.com/richthegeek"
+                },
+                {
+                    "name": "Sebastian Siemssen",
+                    "homepage": "https://twitter.com/thefubhy"
+                },
+                {
+                    "name": "Steve Jones",
+                    "homepage": "https://github.com/darthsteven"
+                },
+                {
+                    "name": "Sam Richard",
+                    "homepage": "https://github.com/snugug"
+                }
+            ],
+            "description": "PHPSass is a PHP compiler for SASS, a popular CSS pre-processor language.",
+            "homepage": "http://phpsass.com"
+        }
+    ],
+    "packages-dev": null,
+    "aliases": [
+
+    ],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "richthegeek/phpsass": 20
+    }
+}
