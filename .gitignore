@@ -38,7 +38,7 @@ app/etc/local.xml
 app/etc/local.xml.additional
 app/etc/local.xml.template
 app/.htaccess
-app/locale/en_US/
+app/locale/en_US/Mage_*.csv
 app/Mage.php
 cron.php
 cron.sh

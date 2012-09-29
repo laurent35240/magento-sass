@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Jean Jean Inc.
+ * 
+ *
+ * @category   Copyright (c) 2012 Jean Jean Inc. (http://laurent-clouet.fr/)
+ * @package    Laurent_Sass
+ * @author     Laurent Clouet <laurent35240@gmail.com>
+ * @date       9/29/12
+ * @copyright  ${copyright}
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0) 
+ */-->
+<config>
+    <sections>
+        <dev>
+            <groups>
+                <sass translate="label" module="sass">
+                    <label>Sass settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>120</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <use_ruby translate="label" module="sass">
+                            <label>Use sass in command line</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <comment><![CDATA[Do not forget to install ruby and sass on your server.<br/>If you do not want to use sass in command line, phpSass will be used instead]]></comment>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </use_ruby>
+                        <ruby_sass_command translate="label" module="sass">
+                            <label>Sass command</label>
+                            <frontend_type>text</frontend_type>
+                            <depends>
+                                <use_ruby>1</use_ruby>
+                            </depends>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </ruby_sass_command>
+                    </fields>
+                </sass>
+            </groups>
+        </dev>
+    </sections>
+</config>

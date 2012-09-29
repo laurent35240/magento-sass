@@ -1,0 +1,4 @@
+"Do not forget to install ruby and sass on your server.<br/>If you do not want to use sass in command line, phpSass will be used instead","N'oubliez pas d'installer ruby et sass sur votre serveur.<br/> Si vou ne voulez pas utiliser sass en ligne de commande, PhpSass sera alors utilisé."
+"Sass command","Commande pour exécuter sass"
+"Sass settings","Configuration de Sass"
+"Use sass in command line","Utiliser sass en ligne de commande"
