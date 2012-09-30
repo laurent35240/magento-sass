@@ -27,14 +27,22 @@ class Laurent_Sass_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         $debug = (bool) Mage::getStoreConfig('dev/sass/debug');
+        $cacheDir = Mage::getBaseDir('cache') . DS . 'sass';
+
+        if(!file_exists($cacheDir)){
+            mkdir($cacheDir, 0775, true);
+        }
 
         if(Mage::getStoreConfig('dev/sass/use_ruby')){
             $sassExec = Mage::getStoreConfig('dev/sass/ruby_sass_command');
-            $options = $debug ? ' --debug-info --line-numbers' : '';
-            $command = $sassExec . $options . ' ' . $sourceFilename .':' . $targetFilename;
-            exec($command, $output);
-            if($output != ''){
-                throw new Exception("Error while processing sass file with command '$command': $output");
+            $options = '--cache-location ' . $cacheDir;
+            if($debug){
+                $options .= ' --debug-info --line-numbers';
+            }
+            $command = $sassExec . ' ' . $options . ' ' . $sourceFilename .':' . $targetFilename;
+            $execResult = exec($command, $output);
+            if($execResult != ''){
+                throw new Exception("Error while processing sass file with command '$command':\n" . implode("\n", $output));
             }
         }
         else{
@@ -42,7 +50,7 @@ class Laurent_Sass_Helper_Data extends Mage_Core_Helper_Abstract
             $sassOptions = array(
                 'style'         => SassRenderer::STYLE_NESTED,
                 'syntax'        => $this->getFileExtension($sourceFilename),
-                'debug'         => true,
+                'debug'         => $debug,
                 'debug_info'    => $debug,
                 'line_numbers'  => $debug,
                 'callbacks'     => array(
