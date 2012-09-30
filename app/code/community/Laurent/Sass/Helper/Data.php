@@ -17,29 +17,53 @@ class Laurent_Sass_Helper_Data extends Mage_Core_Helper_Abstract
 {
     /**
      * Convert a sass file to a css file and put the content in $targetFilename
+     * This method actually does conversion if something change in sass file or in configuration
      * @param string $sourceFilename
      * @param string $targetFilename
      * @throws Exception
      */
     public function convertToCss($sourceFilename, $targetFilename){
-        if (!file_exists(dirname($targetFilename))) {
-            mkdir(dirname($targetFilename), 0775, true);
+        //Conversion needed only if sass file is newer than converted css one
+        $sassFileModifTime = filemtime($sourceFilename);
+
+        $cacheData = array(
+            'source_filename'   => $sourceFilename,
+            'target_filename'   => $targetFilename,
+            'source_modif_time' => $sassFileModifTime,
+            'config'            => $this->_getConfig(),
+        );
+        $cacheDataSerialized = serialize($cacheData);
+
+        $cacheKey = 'sass_' . $sourceFilename . '_' . $targetFilename;
+        /** @var $cacheModel Mage_Core_Model_Cache */
+        $cacheModel = Mage::getSingleton('core/cache');
+        $cachedString = $cacheModel->load($cacheKey);
+
+        if($cachedString != $cacheDataSerialized){
+            $this->createNewCss($sourceFilename, $targetFilename);
+
+            $cacheModel->save($cacheDataSerialized, $cacheKey);
         }
+    }
 
-        $debug = (bool) Mage::getStoreConfig('dev/sass/debug');
-        $cacheDir = Mage::getBaseDir('cache') . DS . 'sass';
+    /**
+     * Create a new css file based on sass file
+     * @param string $sourceFilename
+     * @param string $targetFilename
+     * @throws Exception
+     */
+    public function createNewCss($sourceFilename, $targetFilename){
+        $config = $this->_getConfig();
+        $targetDir = dirname($targetFilename);
+        $this->_createDir($targetDir);
+        $this->_createDir($config['cache_dir']);
 
-        if(!file_exists($cacheDir)){
-            mkdir($cacheDir, 0775, true);
-        }
-
-        if(Mage::getStoreConfig('dev/sass/use_ruby')){
-            $sassExec = Mage::getStoreConfig('dev/sass/ruby_sass_command');
-            $options = '--cache-location ' . $cacheDir;
-            if($debug){
+        if($config['use_ruby']){
+            $options = '--cache-location ' . $config['cache_dir'];
+            if($config['debug']){
                 $options .= ' --debug-info --line-numbers';
             }
-            $command = $sassExec . ' ' . $options . ' ' . $sourceFilename .':' . $targetFilename;
+            $command = $config['sass_command'] . ' ' . $options . ' ' . $sourceFilename .':' . $targetFilename;
             $execResult = exec($command, $output);
             if($execResult != ''){
                 throw new Exception("Error while processing sass file with command '$command':\n" . implode("\n", $output));
@@ -50,9 +74,9 @@ class Laurent_Sass_Helper_Data extends Mage_Core_Helper_Abstract
             $sassOptions = array(
                 'style'         => SassRenderer::STYLE_NESTED,
                 'syntax'        => $this->getFileExtension($sourceFilename),
-                'debug'         => $debug,
-                'debug_info'    => $debug,
-                'line_numbers'  => $debug,
+                'debug'         => $config['debug'],
+                'debug_info'    => $config['debug'],
+                'line_numbers'  => $config['debug'],
                 'callbacks'     => array(
                     'warn'  => array(__CLASS__, 'logWarning'),
                     'debug' => array(__CLASS__, 'logDebug'),
@@ -84,5 +108,23 @@ class Laurent_Sass_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function logDebug($message){
         Mage::log($message, Zend_Log::DEBUG);
+    }
+
+    /**
+     * @param string $dirName
+     */
+    private function _createDir($dirName){
+        if(!file_exists($dirName)){
+            mkdir($dirName, 0775, true);
+        }
+    }
+
+    private function _getConfig(){
+        return array(
+            'use_ruby'      => (bool) Mage::getStoreConfig('dev/sass/use_ruby'),
+            'sass_command'  => Mage::getStoreConfig('dev/sass/ruby_sass_command'),
+            'debug'         => (bool) Mage::getStoreConfig('dev/sass/debug'),
+            'cache_dir'     => Mage::getBaseDir('cache') . DS . 'sass',
+        );
     }
 }
