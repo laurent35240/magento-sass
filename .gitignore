@@ -89,4 +89,9 @@ skin/frontend/default/german/
 skin/frontend/default/iphone/
 skin/frontend/default/modern/
 skin/install/
-var/
+var/cache/
+var/locks/
+var/log/
+var/package/
+var/session/
+var/.htaccess

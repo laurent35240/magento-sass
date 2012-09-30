@@ -1,0 +1,104 @@
+<_>
+   <form_key>Hepw2RELrCrxHAqY</form_key>
+   <name>Sass</name>
+   <channel>comunity</channel>
+   <version_ids>
+      <version_ids>2</version_ids>
+   </version_ids>
+   <summary>Sass - Syntactically Awesome Stylesheets</summary>
+   <description>Use sass language for creating your stylesheets.
+
+You just need to create you sass file and add it to your layout like default css file.
+
+This extension will then convert it to css file using phpSass or sass in command line if available</description>
+   <license>Open Software License (OSL 3.0)</license>
+   <license_uri>http://opensource.org/licenses/osl-3.0.php</license_uri>
+   <version>0.1.0</version>
+   <stability>beta</stability>
+   <notes>First release of sass extension</notes>
+   <authors>
+      <name>
+         <name>Laurent Clouet</name>
+      </name>
+      <user>
+         <user>laurent35240</user>
+      </user>
+      <email>
+         <email>laurent35240@gmail.com</email>
+      </email>
+   </authors>
+   <depends_php_min>5.2.0</depends_php_min>
+   <depends_php_max>6.0.0</depends_php_max>
+   <depends>
+      <package>
+         <name>
+            <name/>
+         </name>
+         <channel>
+            <channel/>
+         </channel>
+         <min>
+            <min/>
+         </min>
+         <max>
+            <max/>
+         </max>
+         <files>
+            <files>  </files>
+         </files>
+      </package>
+      <extension>
+         <name>
+            <name>Core</name>
+         </name>
+         <min>
+            <min/>
+         </min>
+         <max>
+            <max/>
+         </max>
+      </extension>
+   </depends>
+   <contents>
+      <target>
+         <target>magelocal</target>
+         <target>magecommunity</target>
+         <target>mageetc</target>
+         <target>magelocale</target>
+         <target>magelocale</target>
+         <target>magelib</target>
+      </target>
+      <path>
+         <path/>
+         <path>Laurent/Sass</path>
+         <path>modules/Laurent_Sass.xml</path>
+         <path>en_US/Laurent_Sass.csv</path>
+         <path>fr_FR/Laurent_Sass.csv</path>
+         <path>richthegeek</path>
+      </path>
+      <type>
+         <type>file</type>
+         <type>dir</type>
+         <type>file</type>
+         <type>file</type>
+         <type>file</type>
+         <type>dir</type>
+      </type>
+      <include>
+         <include/>
+         <include/>
+         <include/>
+         <include/>
+         <include/>
+         <include/>
+      </include>
+      <ignore>
+         <ignore/>
+         <ignore/>
+         <ignore/>
+         <ignore/>
+         <ignore/>
+         <ignore/>
+      </ignore>
+   </contents>
+</_>
