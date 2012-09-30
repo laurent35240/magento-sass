@@ -1,7 +1,7 @@
 <_>
    <form_key>Hepw2RELrCrxHAqY</form_key>
    <name>Sass</name>
-   <channel>comunity</channel>
+   <channel>community</channel>
    <version_ids>
       <version_ids>2</version_ids>
    </version_ids>
@@ -44,7 +44,7 @@ This extension will then convert it to css file using phpSass or sass in command
             <max/>
          </max>
          <files>
-            <files>  </files>
+            <files>          </files>
          </files>
       </package>
       <extension>
@@ -98,7 +98,7 @@ This extension will then convert it to css file using phpSass or sass in command
          <ignore/>
          <ignore/>
          <ignore/>
-         <ignore/>
+         <ignore>#.git#</ignore>
       </ignore>
    </contents>
 </_>

@@ -1,6 +1,7 @@
 .htaccess
 .htaccess.sample
 .idea
+.directory
 api.php
 app/code/community/Find/
 app/code/community/Phoenix/
