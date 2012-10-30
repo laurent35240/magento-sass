@@ -39,6 +39,8 @@ app/etc/local.xml
 app/etc/local.xml.additional
 app/etc/local.xml.template
 app/.htaccess
+app/locale/en_US/Phoenix_Moneybookers.csv
+app/locale/en_US/template/
 app/locale/en_US/Mage_*.csv
 app/Mage.php
 cron.php
