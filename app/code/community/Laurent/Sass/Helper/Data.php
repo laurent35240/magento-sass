@@ -18,11 +18,14 @@ class Laurent_Sass_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Convert a sass file to a css file and put the content in $targetFilename
      * This method actually does conversion if something change in sass file or in configuration
+     * May apply callback to converted file. Callback gets parameters:
+     * (<source filename>, <target filename>)
      * @param string $sourceFilename
      * @param string $targetFilename
+     * @param callback $afterConvertCallback
      * @throws Exception
      */
-    public function convertToCss($sourceFilename, $targetFilename){
+    public function convertToCss($sourceFilename, $targetFilename, $afterConvertCallback = null){
         //Conversion needed only if sass file is newer than converted css one
         $sassFileModifTime = filemtime($sourceFilename);
 
@@ -41,6 +44,10 @@ class Laurent_Sass_Helper_Data extends Mage_Core_Helper_Abstract
 
         if($cachedString != $cacheDataSerialized){
             $this->createNewCss($sourceFilename, $targetFilename);
+
+            if($afterConvertCallback && is_callable($afterConvertCallback)){
+                call_user_func($afterConvertCallback, $sourceFilename, $targetFilename);
+            }
 
             $cacheModel->save($cacheDataSerialized, $cacheKey);
         }

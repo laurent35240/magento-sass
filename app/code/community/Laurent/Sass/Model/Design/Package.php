@@ -34,7 +34,7 @@ class Laurent_Sass_Model_Design_Package extends Mage_Core_Model_Design_Package
             $sourceFilename = $this->getFilename($file, $params);
 
             try{
-                $sassHelper->convertToCss($sourceFilename, $targetFilename);
+                $sassHelper->convertToCss($sourceFilename, $targetFilename, array($this, 'afterConvertToCss'));
 
                 $skinUrl = str_replace(Mage::getBaseDir('media') . DS, '', $targetFilename);
                 $skinUrl = str_replace('\\', '/', $skinUrl);
@@ -53,5 +53,18 @@ class Laurent_Sass_Model_Design_Package extends Mage_Core_Model_Design_Package
         return $skinUrl;
     }
 
+    /**
+     * Method called after conversion from scss to css in order to change relative urls in css
+     * @param $sourceFilename
+     * @param $targetFilename
+     */
+    public function afterConvertToCss($sourceFilename, $targetFilename){
+        $this->_setCallbackFileDir($sourceFilename);
+        $targetFileContent = file_get_contents($targetFilename);
+        $cssUrl = '/url\\(\\s*(?!data:)([^\\)\\s]+)\\s*\\)?/';
+        $targetFileContent = preg_replace_callback($cssUrl, array($this, '_cssMergerUrlCallback'), $targetFileContent);
+
+        file_put_contents($targetFilename, $targetFileContent);
+    }
 
 }
