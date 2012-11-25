@@ -38,6 +38,13 @@ Check [Magento Connect Sass page][1] for more details.
 ## License
 Magento Sass extension is licensed under Open Software License (OSL 3.0)
 
+## Changeset
+### 1.0.1
+Conversion of relative urls to absolute urls in css file
+
+### 1.0.0
+First version of this extension
+
 [1]: http://www.magentocommerce.com/magento-connect/catalog/product/view/id/14634/
 [2]: https://addons.mozilla.org/en-US/firefox/addon/firesass-for-firebug/
 [3]: https://github.com/laurent35240/magento-sass/issues
