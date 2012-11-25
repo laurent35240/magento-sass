@@ -29,10 +29,20 @@ class Laurent_Sass_Helper_Data extends Mage_Core_Helper_Abstract
         //Conversion needed only if sass file is newer than converted css one
         $sassFileModifTime = filemtime($sourceFilename);
 
+        //Checking if we are in secure area
+        $store = Mage::app()->getStore();
+        if ($store->isAdmin()) {
+            $secure = $store->isAdminUrlSecure();
+        } else {
+            $secure = $store->isFrontUrlSecure() && Mage::app()->getRequest()->isSecure();
+        }
+
         $cacheData = array(
             'source_filename'   => $sourceFilename,
             'target_filename'   => $targetFilename,
             'source_modif_time' => $sassFileModifTime,
+            'store_id'          => $store->getId(),
+            'is_secure'         => $secure,
             'config'            => $this->_getConfig(),
         );
         $cacheDataSerialized = serialize($cacheData);
