@@ -17,6 +17,15 @@ Magento extension for using Sass stylesheet language
     4. If you need debug info in css file created, enable in Back Office: System > Configuration > Developer > Sass Settings.
     You can use then [FireSass plugin for FireBug][2] for reading easily debug information.
 
+For example you can add this lines in one of your layout file:
+```xml
+<default>
+    <reference name="head">
+        <action method="addCss"><stylesheet>css/style.scss</stylesheet></action>
+    </reference>
+</default>
+```
+
 ## Compatibiity
 This extension is compatible with:
 
