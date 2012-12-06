@@ -1,5 +1,5 @@
 <_>
-   <form_key>L5C8IkKOuGqs2POA</form_key>
+   <form_key>8p0GyRY4pCNcezNj</form_key>
    <name>Sass</name>
    <channel>community</channel>
    <version_ids>
@@ -13,9 +13,10 @@ You just need to create you sass file and add it to your layout like default css
 This extension will then convert it to css file using phpSass or sass in command line if available</description>
    <license>Open Software License (OSL 3.0)</license>
    <license_uri>http://opensource.org/licenses/osl-3.0.php</license_uri>
-   <version>1.0.1</version>
+   <version>1.0.2</version>
    <stability>stable</stability>
-   <notes>Conversion of relative urls to absolute urls in css file</notes>
+   <notes>Sass available when css merging is used
+PHPSass updated</notes>
    <authors>
       <name>
          <name>Laurent Clouet</name>
@@ -44,7 +45,7 @@ This extension will then convert it to css file using phpSass or sass in command
             <max/>
          </max>
          <files>
-            <files>            </files>
+            <files>             </files>
          </files>
       </package>
       <extension>

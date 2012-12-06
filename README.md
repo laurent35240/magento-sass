@@ -17,7 +17,7 @@ Magento extension for using Sass stylesheet language
     4. If you need debug info in css file created, enable in Back Office: System > Configuration > Developer > Sass Settings.
     You can use then [FireSass plugin for FireBug][2] for reading easily debug information.
 
-For example you can add this lines in one of your layout file:
+For example you can add this lines in one of your layout files:
 ```xml
 <default>
     <reference name="head">
@@ -48,6 +48,10 @@ Check [Magento Connect Sass page][1] for more details.
 Magento Sass extension is licensed under Open Software License (OSL 3.0)
 
 ## Changeset
+### 1.0.2
+ * Sass available when css merging is used
+ * PHPSass updated
+
 ### 1.0.1
 Conversion of relative urls to absolute urls in css file
 
