@@ -22,31 +22,23 @@ class Laurent_Sass_Model_Design_Package extends Mage_Core_Model_Design_Package
      */
     public function getSkinUrl($file = null, array $params = array())
     {
-        /** @var $sassHelper Laurent_Sass_Helper_Data */
-        $sassHelper = Mage::helper('sass');
-        $fileExtension = $sassHelper->getFileExtension($file);
+        $skinUrl = '';
 
-        if($fileExtension == 'scss' || $fileExtension == 'sass'){
+        if ($this->_isSassFile($file)) {
             if (empty($params['_type'])) {
                 $params['_type'] = 'skin';
             }
-            $targetFilename = Mage::getBaseDir('media') . DS . 'sass' . DS . md5($file) . '.css';
-            $sourceFilename = $this->getFilename($file, $params);
 
-            try{
-                $sassHelper->convertToCss($sourceFilename, $targetFilename, array($this, 'afterConvertToCss'));
+            $targetFilename = $this->getFilename($file, $params);
 
+            if ($targetFilename) {
                 $skinUrl = str_replace(Mage::getBaseDir('media') . DS, '', $targetFilename);
                 $skinUrl = str_replace('\\', '/', $skinUrl);
                 $skinUrl = Mage::getBaseUrl('media', isset($params['_secure']) ? (bool)$params['_secure'] : null) . $skinUrl;
             }
-            catch(Exception $e){
-                Mage::logException($e);
-                $skinUrl = '';
-            }
 
         }
-        else{
+        else {
             $skinUrl = parent::getSkinUrl($file, $params);
         }
 
@@ -54,17 +46,61 @@ class Laurent_Sass_Model_Design_Package extends Mage_Core_Model_Design_Package
     }
 
     /**
+     * Filename of css file or compiled css from sass file
+     * This method is important for using css merging feature
+     *
+     * @param string $file
+     * @param array $params
+     * @return string
+     */
+    public function getFilename($file, array $params)
+    {
+        /** @var $sassHelper Laurent_Sass_Helper_Data */
+        $sassHelper = Mage::helper('sass');
+
+        $filename = parent::getFilename($file, $params);;
+
+        if ($this->_isSassFile($file)) {
+            try {
+                $compiledFilename = Mage::getBaseDir('media') . DS . 'sass' . DS . md5($file) . '.css';
+                $sassHelper->convertToCss($filename, $compiledFilename, array($this, 'afterConvertToCss'));
+                $filename = $compiledFilename;
+            }
+            catch (Exception $e) {
+                Mage::logException($e);
+                $filename = '';
+            }
+        }
+
+        return $filename;
+    }
+
+    /**
      * Method called after conversion from scss to css in order to change relative urls in css
      * @param $sourceFilename
      * @param $targetFilename
      */
-    public function afterConvertToCss($sourceFilename, $targetFilename){
+    public function afterConvertToCss($sourceFilename, $targetFilename)
+    {
         $this->_setCallbackFileDir($sourceFilename);
         $targetFileContent = file_get_contents($targetFilename);
         $cssUrl = '/url\\(\\s*(?!data:)([^\\)\\s]+)\\s*\\)?/';
         $targetFileContent = preg_replace_callback($cssUrl, array($this, '_cssMergerUrlCallback'), $targetFileContent);
 
         file_put_contents($targetFilename, $targetFileContent);
+    }
+
+    /**
+     * Check if provided file is a sass file (based on its extension)
+     * @param $file
+     * @return bool
+     */
+    protected function _isSassFile($file){
+        /** @var $sassHelper Laurent_Sass_Helper_Data */
+        $sassHelper = Mage::helper('sass');
+        $fileExtension = $sassHelper->getFileExtension($file);
+
+        return ($fileExtension == 'scss' || $fileExtension == 'sass');
     }
 
 }
