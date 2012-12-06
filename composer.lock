@@ -7,15 +7,15 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/richthegeek/phpsass",
-                "reference": "0d4d82dd8d1c4fd172f90f6cc5172ef0a1d9055a"
+                "reference": "854e0a3bea0e0e002e3726d50eb2e51be1547c6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/richthegeek/phpsass/zipball/0d4d82dd8d1c4fd172f90f6cc5172ef0a1d9055a",
-                "reference": "0d4d82dd8d1c4fd172f90f6cc5172ef0a1d9055a",
+                "url": "https://github.com/richthegeek/phpsass/archive/854e0a3bea0e0e002e3726d50eb2e51be1547c6b.zip",
+                "reference": "854e0a3bea0e0e002e3726d50eb2e51be1547c6b",
                 "shasum": ""
             },
-            "time": "1351170132",
+            "time": "2012-11-28 20:32:40",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -28,6 +28,7 @@
                     "SassParser.php"
                 ]
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-2-Clause"
             ],
