@@ -7,15 +7,15 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/richthegeek/phpsass",
-                "reference": "854e0a3bea0e0e002e3726d50eb2e51be1547c6b"
+                "reference": "b07422c5fdae25dae1c93bb95d423a40ff250f8b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/richthegeek/phpsass/archive/854e0a3bea0e0e002e3726d50eb2e51be1547c6b.zip",
-                "reference": "854e0a3bea0e0e002e3726d50eb2e51be1547c6b",
+                "url": "https://github.com/richthegeek/phpsass/archive/b07422c5fdae25dae1c93bb95d423a40ff250f8b.zip",
+                "reference": "b07422c5fdae25dae1c93bb95d423a40ff250f8b",
                 "shasum": ""
             },
-            "time": "2012-11-28 20:32:40",
+            "time": "2012-12-15 22:18:35",
             "type": "library",
             "installation-source": "source",
             "autoload": {

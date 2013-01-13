@@ -1,9 +1,20 @@
 {
+    "name":"laurent35240/magento-sass",
+    "type":"magento-module",
+    "license":"OSL-3.0",
+    "homepage":"https://github.com/laurent35240/magento-sass",
+    "description":"Magento extension for using Sass stylesheet language",
+    "authors": [
+        {
+            "name":"Laurent Clouet"
+        }
+    ],
     "config": {
         "vendor-dir": "lib"
     },
 
     "require": {
-        "richthegeek/phpsass": "dev-master"
+        "richthegeek/phpsass": "dev-master",
+        "magento-hackathon/magento-composer-installer": "dev-master"
     }
 }
