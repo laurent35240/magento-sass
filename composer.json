@@ -9,10 +9,6 @@
             "name":"Laurent Clouet"
         }
     ],
-    "config": {
-        "vendor-dir": "lib"
-    },
-
     "require": {
         "richthegeek/phpsass": "dev-master",
         "magento-hackathon/magento-composer-installer": "dev-master"
