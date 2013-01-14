@@ -10,7 +10,6 @@
         }
     ],
     "require": {
-        "richthegeek/phpsass": "dev-master",
         "magento-hackathon/magento-composer-installer": "dev-master"
     }
 }

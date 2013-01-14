@@ -2,3 +2,4 @@ app/code/community/Laurent/Sass     app/code/community/Laurent/Sass
 app/etc/modules/Laurent_Sass.xml    app/etc/modules/Laurent_Sass.xml
 app/locale/en_US/Laurent_Sass.csv   app/locale/en_US/Laurent_Sass.csv
 app/locale/fr_FR/Laurent_Sass.csv   app/locale/fr_FR/Laurent_Sass.csv
+lib/phpsass                         lib/phpsass
