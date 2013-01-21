@@ -76,7 +76,7 @@ class Laurent_Sass_Helper_Data extends Mage_Core_Helper_Abstract
         $this->_createDir($config['cache_dir']);
 
         if($config['use_ruby']){
-            $options = '--cache-location ' . $config['cache_dir'];
+            $options = '--cache-location ' . $config['cache_dir'] . ' --style ' . $config['output_style'];
             if($config['debug']){
                 $options .= ' --debug-info --line-numbers';
             }
@@ -89,7 +89,7 @@ class Laurent_Sass_Helper_Data extends Mage_Core_Helper_Abstract
         else{
             //Using PhpSass
             $sassOptions = array(
-                'style'         => SassRenderer::STYLE_NESTED,
+                'style'         => $config['output_style'],
                 'syntax'        => $this->getFileExtension($sourceFilename),
                 'debug'         => $config['debug'],
                 'debug_info'    => $config['debug'],
@@ -137,11 +137,21 @@ class Laurent_Sass_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     private function _getConfig(){
+        //Getting output style
+        $outputStyle = Mage::getStoreConfig('dev/sass/output_style');
+        /** @var $configStyleModel Laurent_Sass_Model_Config_Style */
+        $configStyleModel = Mage::getModel('sass/config_style');
+        $authorizedOutputStyles = $configStyleModel->authorizedValues();
+        if(!in_array($outputStyle, $authorizedOutputStyles)){
+            $outputStyle = SassRenderer::STYLE_NESTED;
+        }
+
         return array(
             'use_ruby'      => (bool) Mage::getStoreConfig('dev/sass/use_ruby'),
             'sass_command'  => Mage::getStoreConfig('dev/sass/ruby_sass_command'),
             'debug'         => (bool) Mage::getStoreConfig('dev/sass/debug'),
             'cache_dir'     => Mage::getBaseDir('cache') . DS . 'sass',
+            'output_style'  => $outputStyle,
         );
     }
 }

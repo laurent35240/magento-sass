@@ -29,6 +29,9 @@
                     <design_package>Laurent_Sass_Model_Design_Package</design_package>
                 </rewrite>
             </core>
+            <sass>
+                <class>Laurent_Sass_Model</class>
+            </sass>
         </models>
     </global>
     <adminhtml>
@@ -45,6 +48,7 @@
     <default>
         <dev>
             <sass>
+                <output_style>nested</output_style>
                 <ruby_sass_command>sass</ruby_sass_command>
             </sass>
         </dev>
