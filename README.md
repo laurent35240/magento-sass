@@ -48,6 +48,9 @@ Check [Magento Connect Sass page][1] for more details.
 Magento Sass extension is licensed under Open Software License (OSL 3.0)
 
 ## Changeset
+### 1.1.0
+It is now possible to choose output style in back office.
+
 ### 1.0.2
  * Sass available when css merging is used
  * PHPSass updated
