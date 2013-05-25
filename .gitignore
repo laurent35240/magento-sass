@@ -2,7 +2,9 @@
 .htaccess.sample
 .idea
 .directory
+.modman
 api.php
+app/code/community/Aoe
 app/code/community/Find/
 app/code/community/Phoenix/
 app/code/core/
@@ -14,6 +16,7 @@ app/design/frontend/default/default/
 app/design/frontend/default/iphone/
 app/design/frontend/default/modern/
 app/design/install/
+app/etc/modules/Aoe_TemplateHints.xml
 app/etc/modules/Find_Feed.xml
 app/etc/modules/Mage_All.xml
 app/etc/modules/Mage_Api.xml
