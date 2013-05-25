@@ -25,41 +25,12 @@ class Laurent_Sass_Helper_Data extends Mage_Core_Helper_Abstract
      * @param callback $afterConvertCallback
      * @throws Exception
      */
-    public function convertToCss($sourceFilename, $targetFilename, $afterConvertCallback = null){
-        //Conversion needed only if sass file is newer than converted css one
-        $sassFileModifTime = filemtime($sourceFilename);
+    public function convertToCss($sourceFilename, $targetFilename, $afterConvertCallback = null)
+    {
+        $this->createNewCss($sourceFilename, $targetFilename);
 
-        //Checking if we are in secure area
-        $store = Mage::app()->getStore();
-        if ($store->isAdmin()) {
-            $secure = $store->isAdminUrlSecure();
-        } else {
-            $secure = $store->isFrontUrlSecure() && Mage::app()->getRequest()->isSecure();
-        }
-
-        $cacheData = array(
-            'source_filename'   => $sourceFilename,
-            'target_filename'   => $targetFilename,
-            'source_modif_time' => $sassFileModifTime,
-            'store_id'          => $store->getId(),
-            'is_secure'         => $secure,
-            'config'            => $this->_getConfig(),
-        );
-        $cacheDataSerialized = serialize($cacheData);
-
-        $cacheKey = 'sass_' . $sourceFilename . '_' . $targetFilename;
-        /** @var $cacheModel Mage_Core_Model_Cache */
-        $cacheModel = Mage::getSingleton('core/cache');
-        $cachedString = $cacheModel->load($cacheKey);
-
-        if($cachedString != $cacheDataSerialized){
-            $this->createNewCss($sourceFilename, $targetFilename);
-
-            if($afterConvertCallback && is_callable($afterConvertCallback)){
-                call_user_func($afterConvertCallback, $sourceFilename, $targetFilename);
-            }
-
-            $cacheModel->save($cacheDataSerialized, $cacheKey);
+        if($afterConvertCallback && is_callable($afterConvertCallback)){
+            call_user_func($afterConvertCallback, $sourceFilename, $targetFilename);
         }
     }
 

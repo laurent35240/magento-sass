@@ -62,8 +62,17 @@ class Laurent_Sass_Model_Design_Package extends Mage_Core_Model_Design_Package
 
         if ($this->_isSassFile($file)) {
             try {
-                $compiledFilename = Mage::getBaseDir('media') . DS . 'sass' . DS . md5($file) . '.css';
-                $sassHelper->convertToCss($filename, $compiledFilename, array($this, 'afterConvertToCss'));
+                if(Mage::app()->useCache('sass')) {
+                    $cacheKey = $this->getCacheKey($filename);
+                    $compiledFilename = Mage::app()->loadCache($cacheKey);
+                    if(!$compiledFilename) {
+                        $compiledFilename = $this->convertToCss($filename);
+                        Mage::app()->saveCache($compiledFilename, $cacheKey, array('sass'), 86400);
+                    }
+                }
+                else {
+                    $compiledFilename = $this->convertToCss($filename);
+                }
                 $filename = $compiledFilename;
             }
             catch (Exception $e) {
@@ -73,6 +82,20 @@ class Laurent_Sass_Model_Design_Package extends Mage_Core_Model_Design_Package
         }
 
         return $filename;
+    }
+
+    /**
+     * Convert a sass file to css file and return css file name
+     * @param $filename
+     * @return string compiled filename
+     */
+    public function convertToCss($filename)
+    {
+        $sassHelper = Mage::helper('sass');
+        $compiledFilename = Mage::getBaseDir('media') . DS . 'sass' . DS . md5($filename) . '.css';
+        $sassHelper->convertToCss($filename, $compiledFilename, array($this, 'afterConvertToCss'));
+
+        return $compiledFilename;
     }
 
     /**
@@ -88,6 +111,31 @@ class Laurent_Sass_Model_Design_Package extends Mage_Core_Model_Design_Package
         $targetFileContent = preg_replace_callback($cssUrl, array($this, '_cssMergerUrlCallback'), $targetFileContent);
 
         file_put_contents($targetFilename, $targetFileContent);
+    }
+
+    /**
+     * @param $sourceFilename
+     * @return string
+     */
+    public function getCacheKey($sourceFilename)
+    {
+        //Checking if we are in secure area
+        $store = Mage::app()->getStore();
+        if ($store->isAdmin()) {
+            $secure = $store->isAdminUrlSecure();
+        } else {
+            $secure = $store->isFrontUrlSecure() && Mage::app()->getRequest()->isSecure();
+        }
+
+        $cacheKeyInfo = array(
+            $sourceFilename,
+            $store->getId(),
+            $secure,
+        );
+        $key = implode('|', $cacheKeyInfo);
+        $key = sha1($key);
+
+        return $key;
     }
 
     /**

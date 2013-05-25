@@ -1,5 +1,6 @@
 "Add debug info in generated files","Add debug info in generated files"
 "Compact","Compact"
+"Compiled Sass files","Compiled Sass files"
 "Compressed","Compressed"
 "Do not forget to install ruby and sass on your server.<br/>If you do not want to use sass in command line, phpSass will be used instead","Do not forget to install ruby and sass on your server.<br/>If you do not want to use sass in command line, phpSass will be used instead"
 "Expanded","Expanded"
