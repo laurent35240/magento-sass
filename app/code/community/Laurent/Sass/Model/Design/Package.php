@@ -55,9 +55,6 @@ class Laurent_Sass_Model_Design_Package extends Mage_Core_Model_Design_Package
      */
     public function getFilename($file, array $params)
     {
-        /** @var $sassHelper Laurent_Sass_Helper_Data */
-        $sassHelper = Mage::helper('sass');
-
         $filename = parent::getFilename($file, $params);;
 
         if ($this->_isSassFile($file)) {
