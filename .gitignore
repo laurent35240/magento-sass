@@ -3,7 +3,7 @@
 .idea
 .directory
 .modman
-1.7.0.2-1.8.0.0.diff
+*.diff
 api.php
 app/code/community/Aoe
 app/code/community/Cm
