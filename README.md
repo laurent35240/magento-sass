@@ -9,22 +9,22 @@ Magento extension for using Sass stylesheet language
     * Possibility of having debug information css files created
 
 ## Installation
-### Composer ([magento composer](https://github.com/magento-hackathon/composer-repository) must be installed)
+#### Composer ([magento composer](https://github.com/magento-hackathon/composer-repository) must be installed)
 
 ```bash
-    composer install laurent35240/magento-sass
-``
+composer install laurent35240/magento-sass
+```
 
-### Magento Connect
+#### Magento Connect
 Install this extension though [Magento Connect](http://www.magentocommerce.com/magento-connect/sass.html)
 
 ## Configuration
-    1. Just add your sass file in layout using addCss method. This extension will automatically create css file
- in media/sass folder
-    2. By default this extension use scssphp library, if you want to use sass in command line instead,
-    change settings in Back Office: System > Configuration > Developer > Sass Settings
-    3. If you need debug info in css file created, enable in Back Office: System > Configuration > Developer > Sass Settings.
-    You can use then [FireSass plugin for FireBug][2] for reading easily debug information.
+1. Just add your sass file in layout using addCss method. This extension will automatically create css file
+in media/sass folder
+1. By default this extension use scssphp library, if you want to use sass in command line instead,
+change settings in Back Office: System > Configuration > Developer > Sass Settings
+1. If you need debug info in css file created, enable in Back Office: System > Configuration > Developer > Sass Settings.
+You can use then [FireSass plugin for FireBug][2] for reading easily debug information.
 
 For example you can add this lines in one of your layout files:
 ```xml
