@@ -62,7 +62,6 @@ Magento Sass extension is licensed under Open Software License (OSL 3.0)
 ### 1.2.0
 switch to leafo/scssphp library
 
-## Changeset
 ### 1.1.3
 phpsass library updated
 
