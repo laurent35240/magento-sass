@@ -1,3 +1,3 @@
-[submodule "lib/phpsass"]
-	path = lib/phpsass
-	url = git://github.com/richthegeek/phpsass.git
+[submodule "lib/scssphp"]
+	path = lib/scssphp
+	url = git://github.com/leafo/scssphp.git

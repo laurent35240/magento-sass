@@ -14,7 +14,7 @@
 <config>
     <modules>
         <Laurent_Sass>
-            <version>1.1.4</version>
+            <version>1.2.0</version>
         </Laurent_Sass>
     </modules>
     <global>
@@ -57,7 +57,7 @@
     <default>
         <dev>
             <sass>
-                <output_style>nested</output_style>
+                <output_style>compressed</output_style>
                 <ruby_sass_command>sass</ruby_sass_command>
             </sass>
         </dev>

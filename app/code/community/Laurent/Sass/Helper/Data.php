@@ -11,7 +11,7 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-require_once 'phpsass/SassParser.php';
+require_once 'scssphp/scss.inc.php';
 
 class Laurent_Sass_Helper_Data extends Mage_Core_Helper_Abstract
 {
@@ -36,13 +36,13 @@ class Laurent_Sass_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Create a new css file based on sass file
-     * @param string $sourceFilename
-     * @param string $targetFilename
+     * @param string $sourceFilePath
+     * @param string $targetFilenamePath
      * @throws Exception
      */
-    public function createNewCss($sourceFilename, $targetFilename){
+    public function createNewCss($sourceFilePath, $targetFilenamePath){
         $config = $this->_getConfig();
-        $targetDir = dirname($targetFilename);
+        $targetDir = dirname($targetFilenamePath);
         $this->_createDir($targetDir);
         $this->_createDir($config['cache_dir']);
 
@@ -51,28 +51,35 @@ class Laurent_Sass_Helper_Data extends Mage_Core_Helper_Abstract
             if($config['debug']){
                 $options .= ' --debug-info --line-numbers';
             }
-            $command = $config['sass_command'] . ' ' . $options . ' ' . $sourceFilename .':' . $targetFilename;
+            $command = $config['sass_command'] . ' ' . $options . ' ' . $sourceFilePath .':' . $targetFilenamePath;
             $execResult = exec($command, $output);
             if($execResult != ''){
                 throw new Exception("Error while processing sass file with command '$command':\n" . implode("\n", $output));
             }
-        }
-        else{
-            //Using PhpSass
-            $sassOptions = array(
-                'style'         => $config['output_style'],
-                'syntax'        => $this->getFileExtension($sourceFilename),
-                'debug'         => $config['debug'],
-                'debug_info'    => $config['debug'],
-                'line_numbers'  => $config['debug'],
-                'callbacks'     => array(
-                    'warn'  => array(__CLASS__, 'logWarning'),
-                    'debug' => array(__CLASS__, 'logDebug'),
-                ),
-            );
-            $sassParser = new SassParser($sassOptions);
-            $cssContent = $sassParser->toCss($sourceFilename);
-            file_put_contents($targetFilename, $cssContent);
+        } else {
+            $compiler = new \Leafo\ScssPhp\Compiler();
+            switch ($config['output_style']) {
+                case Laurent_Sass_Model_Config_Style::STYLE_COMPACT:
+                default:
+                    $formatter = 'scss_formatter_crunched';
+                    break;
+                case Laurent_Sass_Model_Config_Style::STYLE_NESTED:
+                    $formatter = 'scss_formatter_nested';
+                    break;
+                case Laurent_Sass_Model_Config_Style::STYLE_COMPRESSED:
+                    $formatter = 'scss_formatter_compressed';
+                    break;
+                case Laurent_Sass_Model_Config_Style::STYLE_EXPANDED:
+                    $formatter = 'scss_formatter';
+                    break;
+            }
+            $compiler->setFormatter($formatter);
+            $compiler->setImportPaths(array (
+                dirname($sourceFilePath),
+                Mage::getBaseDir('lib') . '/scssphp/stylesheets',
+            ));
+
+            file_put_contents($targetFilenamePath, $compiler->compile(sprintf('@import "%s"', basename($sourceFilePath))));
         }
     }
 
@@ -114,7 +121,7 @@ class Laurent_Sass_Helper_Data extends Mage_Core_Helper_Abstract
         $configStyleModel = Mage::getModel('sass/config_style');
         $authorizedOutputStyles = $configStyleModel->authorizedValues();
         if(!in_array($outputStyle, $authorizedOutputStyles)){
-            $outputStyle = SassRenderer::STYLE_NESTED;
+            $outputStyle = Laurent_Sass_Model_Config_Style::STYLE_NESTED;
         }
 
         return array(

@@ -11,11 +11,13 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-require_once 'phpsass/renderers/SassRenderer.php';
-
 class Laurent_Sass_Model_Config_Style
 {
-
+    const STYLE_NESTED     = 'nested';
+    const STYLE_EXPANDED   = 'expanded';
+    const STYLE_COMPACT    = 'compact';
+    const STYLE_COMPRESSED = 'compressed';
+    
     /**
      * Options getter
      * @return array
@@ -25,10 +27,10 @@ class Laurent_Sass_Model_Config_Style
         $sassHelper = Mage::helper('sass');
 
         return array(
-            array('value' => SassRenderer::STYLE_NESTED, 'label' => $sassHelper->__('Nested')),
-            array('value' => SassRenderer::STYLE_COMPACT, 'label' => $sassHelper->__('Compact')),
-            array('value' => SassRenderer::STYLE_COMPRESSED, 'label' => $sassHelper->__('Compressed')),
-            array('value' => SassRenderer::STYLE_EXPANDED, 'label' => $sassHelper->__('Expanded')),
+            array('value' => self::STYLE_NESTED, 'label' => $sassHelper->__('Nested')),
+            array('value' => self::STYLE_EXPANDED, 'label' => $sassHelper->__('Expanded')),
+            array('value' => self::STYLE_COMPACT, 'label' => $sassHelper->__('Compact')),
+            array('value' => self::STYLE_COMPRESSED, 'label' => $sassHelper->__('Compressed')),
         );
     }
 
@@ -38,10 +40,10 @@ class Laurent_Sass_Model_Config_Style
      */
     public function authorizedValues(){
         return array(
-            SassRenderer::STYLE_NESTED,
-            SassRenderer::STYLE_COMPACT,
-            SassRenderer::STYLE_COMPRESSED,
-            SassRenderer::STYLE_EXPANDED,
+            self::STYLE_NESTED,
+            self::STYLE_COMPACT,
+            self::STYLE_COMPRESSED,
+            self::STYLE_EXPANDED,
         );
     }
 }

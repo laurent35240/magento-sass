@@ -9,13 +9,22 @@ Magento extension for using Sass stylesheet language
     * Possibility of having debug information css files created
 
 ## Installation
-    1. Install this extension though [Magento Connect][1]
-    2. Just add your sass file in layout using addCss method. This extension will automatically create css file
- in medai/sass folder
-    3. By default this extension use PhpSass library, if you want to use sass in command line instead,
-    change settings in Back Office: System > Configuration > Developer > Sass Settings
-    4. If you need debug info in css file created, enable in Back Office: System > Configuration > Developer > Sass Settings.
-    You can use then [FireSass plugin for FireBug][2] for reading easily debug information.
+#### Composer ([magento composer](https://github.com/magento-hackathon/composer-repository) must be installed)
+
+```bash
+composer install laurent35240/magento-sass
+```
+
+#### Magento Connect
+Install this extension though [Magento Connect](http://www.magentocommerce.com/magento-connect/sass.html)
+
+## Configuration
+1. Just add your sass file in layout using addCss method. This extension will automatically create css file
+in media/sass folder
+1. By default this extension use scssphp library, if you want to use sass in command line instead,
+change settings in Back Office: System > Configuration > Developer > Sass Settings
+1. If you need debug info in css file created, enable in Back Office: System > Configuration > Developer > Sass Settings.
+You can use then [FireSass plugin for FireBug][2] for reading easily debug information.
 
 For example you can add this lines in one of your layout files:
 ```xml
@@ -26,11 +35,13 @@ For example you can add this lines in one of your layout files:
 </default>
 ```
 
+## Requirements
+ * PHP 5.3+
+
 ## Compatibiity
 This extension is compatible with:
-
- * Magento CE 1.5, 1.6 and 1.7
- * Magento EE 1.10, 1.11 and 1.12
+ * Magento CE 1.5+
+ * Magento EE 1.10+
 
 ## Locales
 Extension available in:
@@ -48,6 +59,9 @@ Check [Magento Connect Sass page][1] for more details.
 Magento Sass extension is licensed under Open Software License (OSL 3.0)
 
 ## Changeset
+### 1.2.0
+switch to leafo/scssphp library
+
 ### 1.1.3
 phpsass library updated
 
